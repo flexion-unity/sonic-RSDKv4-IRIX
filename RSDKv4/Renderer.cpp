@@ -528,7 +528,8 @@ void RenderScene()
         if (state->useFilter && mixFiltersOnJekyll) {
 #if RETRO_USING_OPENGL
             glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFramebuffer);
-            glBindFramebuffer(GL_FRAMEBUFFER, framebufferHiRes);
+        // glBindFramebuffer(GL_FRAMEBUFFER, framebufferHiRes);
+           printf("A) glBindFramebuffer disabled!!\n");
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, Engine.scalingMode ? GL_LINEAR : GL_NEAREST);
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, Engine.scalingMode ? GL_LINEAR : GL_NEAREST);
             glVertexPointer(3, GL_FLOAT, sizeof(DrawVertex), screenBufferVertexList);
@@ -543,7 +544,7 @@ void RenderScene()
 
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer);
+        // glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer);
             glBindTexture(GL_TEXTURE_2D, renderbufferHiRes);
             glVertexPointer(3, GL_FLOAT, sizeof(DrawVertex), state->vertPtr);
             glTexCoordPointer(2, GL_FLOAT, sizeof(DrawVertex), &state->vertPtr->texCoordX);

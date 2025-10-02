@@ -838,7 +838,7 @@ void SetupViewport()
     textureList[0].format  = TEXFMT_RETROBUFFER;
     textureList[0].widthN  = 1.0f / texWidth;
     textureList[0].heightN = 1.0f / texHeight;
-
+/* temporarily disabled for irix
     if (Engine.useHighResAssets) {
 #if RETRO_USING_OPENGL
         if (framebufferHiRes != -1)
@@ -897,7 +897,7 @@ void SetupViewport()
         renderbufferHiRes = -1;
 #endif
     }
-
+*/
     bool transfer = false;
 #if RETRO_USING_OPENGL
     if (textureList[0].id != -1) {
