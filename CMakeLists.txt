@@ -6,8 +6,8 @@ set(DECOMP_VERSION 1.3.2)
 
 set(RETRO_REVISION 3 CACHE STRING "What revision to compile for. Defaults to Origins = 3")
 option(RETRO_FORCE_CASE_INSENSITIVE "Forces case insensivity." OFF)
-option(RETRO_MOD_LOADER "Enables or disables the mod loader." ON)
-option(RETRO_NETWORKING "Enables or disables networking features used for Sonic 2's 2P VS mode." ON)
+option(RETRO_MOD_LOADER "Enables or disables the mod loader." OFF)
+option(RETRO_NETWORKING "Enables or disables networking features used for Sonic 2's 2P VS mode." OFF)
 option(RETRO_USE_HW_RENDER "Enables usage of the Hardware Render, menus are unplayable without it." ON)
 option(RETRO_DISABLE_PLUS "Disables Plus. Should be set on for any public releases." OFF)
 option(RETRO_ORIGINAL_CODE "Removes any change that differs from the original code, a playable game can't be built this way." OFF)
@@ -22,6 +22,12 @@ endif()
 set(RETRO_NAME "RSDKv4")
 
 set(RETRO_OUTPUT_NAME ${RETRO_NAME} CACHE STRING "The exported name of the executable.")
+
+if(CMAKE_SYSTEM_NAME STREQUAL "IRIX" OR CMAKE_SYSTEM_NAME STREQUAL "IRIX64")
+  message(STATUS "IRIX detected!")
+  set(IRIX ON)
+#  add_compile_options(-I/usr/sgug/lib/gcc/mips-sgi-irix6.5/9/include -I/usr/include -I/usr/sgug/include)
+endif()
 
 set(RETRO_FILES
     dependencies/all/tinyxml2/tinyxml2.cpp
@@ -96,6 +102,8 @@ if(NOT PLATFORM)
         set(PLATFORM "Windows" CACHE STRING "The platform to compile for.")
     elseif(ANDROID)
         set(PLATFORM "Android" CACHE STRING "The platform to compile for.")
+    elseif(IRIX)
+        set(PLATFORM "IRIX" CACHE STRING "The platform to compile for.")
     else()
         set(PLATFORM ${CMAKE_SYSTEM_NAME} CACHE STRING "The platform to compile for.")
     endif()
@@ -166,15 +174,10 @@ endif()
 target_include_directories(RetroEngine PRIVATE
     RSDKv4/
     RSDKv4/NativeObjects/
+    dependencies/all/asio/asio/include/
     dependencies/all/stb-image/
     dependencies/all/tinyxml2/
 )
-
-if(RETRO_NETWORKING)
-    target_include_directories(RetroEngine PRIVATE
-        dependencies/all/asio/asio/include/
-    )
-endif()
 
 if(DEFINED DEP_PATH)
     target_include_directories(RetroEngine PRIVATE
