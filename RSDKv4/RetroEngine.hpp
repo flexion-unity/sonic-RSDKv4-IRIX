@@ -307,6 +307,7 @@ enum RetroGameType {
 
 #elif RETRO_USING_SDL2
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_opengl.h> // for IRIX SDL2 GL
 #include <vorbis/vorbisfile.h>
 #else
 
