@@ -30,7 +30,27 @@ THE SOFTWARE.
 #include <errno.h>
 #include <unistd.h>
 
-// r must have strlen(path) + 3 bytes
+#ifdef __sgi
+// add missing strsep function for IRIX
+char *strsep(char **stringp, const char *delim) {
+    char *start = *stringp;
+    char *ptr;
+
+    if (start == NULL) return NULL;
+
+    ptr = strpbrk(start, delim);
+    if (ptr) {
+        *ptr = '\0';
+        *stringp = ptr + 1;
+    } else {
+        *stringp = NULL;
+    }
+    return start;
+}
+#endif
+
+
+// r must have strlen(path) + 2 bytes
 static int casepath(char const *path, char *r)
 {
     size_t l = strlen(path);
