@@ -693,7 +693,7 @@ int LoadTexture(const char *filePath, int format)
                     }
 
 #if RETRO_USING_OPENGL
-#if defined(__sgi) // if big endian
+#if defined(__sgi) // if big endian (verified)
                     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->width, texture->height, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, pixels);
 #else
                     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->width, texture->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
@@ -787,7 +787,10 @@ void ReplaceTexture(const char *filePath, int texID)
                     }
 #if RETRO_USING_OPENGL
 #if defined(__sgi) // if big endian
-                    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texture->width, texture->height, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, pixels);
+                    printf("swapping GL_UNSIGNED_SHORT_5_5_5_1\n");
+                glPixelStorei(GL_UNPACK_SWAP_BYTES, 1); // reverse byte order
+                glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texture->width, texture->height, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, pixels);
+                glPixelStorei(GL_UNPACK_SWAP_BYTES, 0); // restore byte order
 #else
                     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texture->width, texture->height, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, pixels);
 #endif
@@ -811,7 +814,7 @@ void ReplaceTexture(const char *filePath, int texID)
                     }
 
 #if RETRO_USING_OPENGL
-#if defined(__sgi) // if big endian
+#if defined(__sgi) // if big endian (verified)
                     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texture->width, texture->height, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, pixels);
 #else
                     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texture->width, texture->height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
