@@ -643,11 +643,7 @@ int LoadTexture(const char *filePath, int format)
                     }
 
 #if RETRO_USING_OPENGL
-#if defined(__sgi) // if big endian
-                    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->width, texture->height, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, pixels);
-#else
                     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->width, texture->height, 0, GL_RGBA, GL_UNSIGNED_SHORT_4_4_4_4, pixels);
-#endif
                     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
                     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
                     glBindTexture(GL_TEXTURE_2D, 0);
@@ -693,7 +689,7 @@ int LoadTexture(const char *filePath, int format)
                     }
 
 #if RETRO_USING_OPENGL
-#if defined(__sgi) // if big endian
+#if defined(__sgi) // if big endian (verified)
                     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->width, texture->height, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, pixels);
 #else
                     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->width, texture->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
@@ -786,11 +782,7 @@ void ReplaceTexture(const char *filePath, int texID)
                         }
                     }
 #if RETRO_USING_OPENGL
-#if defined(__sgi) // if big endian
-                    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texture->width, texture->height, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, pixels);
-#else
                     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texture->width, texture->height, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, pixels);
-#endif
                     glBindTexture(GL_TEXTURE_2D, 0);
 #endif
 
@@ -811,7 +803,7 @@ void ReplaceTexture(const char *filePath, int texID)
                     }
 
 #if RETRO_USING_OPENGL
-#if defined(__sgi) // if big endian
+#if defined(__sgi) // if big endian (verified)
                     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texture->width, texture->height, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, pixels);
 #else
                     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texture->width, texture->height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
