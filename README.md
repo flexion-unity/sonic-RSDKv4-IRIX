@@ -19,3 +19,9 @@ Follow the [README.md](https://github.com/RSDKModding/RSDKv4-Decompilation/blob/
 or "make -j4" if your SiliconGraphics box has 4 CPUs
 
 Tested with Sonic 1 on Octane2 with V12 gfx.
+
+# Known issues
+
+- Start intro + menu and in-game options menu still have serious 3D glitches.
+for now, set "SkipStartMenu=true" in your setting.ini to skip the intro and proceed straight to the game. 
+
