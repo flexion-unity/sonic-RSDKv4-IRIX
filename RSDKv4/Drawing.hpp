@@ -1,6 +1,8 @@
 #ifndef DRAWING_H
 #define DRAWING_H
 
+#include <SDL2/SDL_opengl.h>    // for IRIX SDL2 GL
+
 #define SURFACE_COUNT (24)
 #define GFXDATA_SIZE  (0x800 * 0x800)
 

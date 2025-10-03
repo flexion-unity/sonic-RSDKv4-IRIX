@@ -70,6 +70,7 @@ int InitRenderDevice()
     flags |= SDL_WINDOW_OPENGL;
 
 #if RETRO_PLATFORM != RETRO_OSX // dude idk either you just gotta trust that this works
+/* disable for linux and irix
 #if RETRO_PLATFORM != RETRO_ANDROID
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 #else
@@ -77,6 +78,7 @@ int InitRenderDevice()
 #endif
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+*/
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 #endif
@@ -102,6 +104,7 @@ int InitRenderDevice()
 
     if (!Engine.window) {
         PrintLog("ERROR: failed to create window!");
+        printf("ERROR: failed to create window!");
         return 0;
     }
 
@@ -202,6 +205,7 @@ int InitRenderDevice()
 
     SDL_GL_SetSwapInterval(Engine.vsync ? 1 : 0);
 
+/* completely disable GLEW in this repo
 #if RETRO_PLATFORM != RETRO_ANDROID && RETRO_PLATFORM != RETRO_OSX
     GLenum err = glewInit();
     if (err != GLEW_OK && err != GLEW_ERROR_NO_GLX_DISPLAY) {
@@ -210,6 +214,7 @@ int InitRenderDevice()
         return false;
     }
 #endif
+*/
 
     displaySettings.unknown2 = 0;
 
@@ -833,7 +838,7 @@ void SetupViewport()
     textureList[0].format  = TEXFMT_RETROBUFFER;
     textureList[0].widthN  = 1.0f / texWidth;
     textureList[0].heightN = 1.0f / texHeight;
-
+/* temporarily disabled for irix
     if (Engine.useHighResAssets) {
 #if RETRO_USING_OPENGL
         if (framebufferHiRes != -1)
@@ -892,7 +897,7 @@ void SetupViewport()
         renderbufferHiRes = -1;
 #endif
     }
-
+*/
     bool transfer = false;
 #if RETRO_USING_OPENGL
     if (textureList[0].id != -1) {
