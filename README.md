@@ -1,8 +1,6 @@
 
 # RSDKv4 Sonic for IRIX (big endian)
 
-![](irix_screenshot.png?raw=true)
-
 This is a copy of [RSDKv4-Decompilation](https://github.com/RSDKModding/RSDKv4-Decompilation) with modifications to run on IRIX 6.5.x
 
 Follow the [README.md](https://github.com/RSDKModding/RSDKv4-Decompilation/blob/main/README.md) of the original project for general information on how to set up resources. Submodules are already included in this repo for IRIX, no need to initialize submodule dependencies.
