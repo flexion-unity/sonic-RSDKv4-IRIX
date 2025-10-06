@@ -48,12 +48,16 @@ if(RETRO_SDL_VERSION STREQUAL "2")
     message(STATUS "-- Checking for SDL2 on IRIX --")
     pkg_check_modules(SDL2 sdl2 REQUIRED)
 #    target_link_libraries(RetroEngine ${SDL2_STATIC_LIBRARIES})
-    target_link_libraries(RetroEngine /usr/lib32/libX11.so -lGL -lGLcore -lm ${SDL2_STATIC_LIBRARIES} )
 
-    target_link_options(RetroEngine PRIVATE ${SDL2_STATIC_LDLIBS_OTHER} /usr/lib32/libX11.so.1 /usr/lib32/libXext.a /usr/lib32/libXt.a /usr/lib32/libXm.so.1 /usr/lib32/libXpm.so.1 -Wl,--allow-shlib-undefined -Wl,-rpath-link=/usr/lib32 -Wl,-rpath=/usr/lib32:/usr/sgug/lib32)
+# drmadison rpm    target_link_libraries(RetroEngine /usr/lib32/libX11.so -lGL -lGLcore -lm ${SDL2_STATIC_LIBRARIES} )
 
-    target_compile_options(RetroEngine PRIVATE ${SDL2_STATIC_CFLAGS} -I/usr/sgug/lib/gcc/mips-sgi-irix6.5/9/include -I/usr/include -I/usr/sgug/include)
+target_link_libraries(RetroEngine  -Wl,-rpath-link=/usr/lib32 -Wl,-rpath=/usr/lib32:/usr/sgug/lib32 -lGLcore -laudio -Wl,--allow-shlib-undefined -pthread ${SDL2_STATIC_LIBRARIES} )
 
+# drmadison rpm    target_link_options(RetroEngine PRIVATE ${SDL2_STATIC_LDLIBS_OTHER}-lSDL2 -Wl,-rpath-link=/usr/lib32 -Wl,-rpath=/usr/lib32:/usr/sgug/lib32 -lGLcore -laudio -Wl,--allow-shlib-undefined -pthread )
+
+# drmadison rpm    target_compile_options(RetroEngine PRIVATE ${SDL2_STATIC_CFLAGS} -I/usr/sgug/lib/gcc/mips-sgi-irix6.5/9/include -I/usr/include -I/usr/sgug/include)
+
+    target_compile_options(RetroEngine PRIVATE ${SDL2_STATIC_CFLAGS} -I/usr/sgug/lib/gcc/mips-sgi-irix6.5/9/include -I/usr/include -I/usr/sgug/include -I/usr/people/flexion/Homeworld/sdl2-gl-test/include/ )
 
 elseif(RETRO_SDL_VERSION STREQUAL "1")
     pkg_check_modules(SDL1 sdl1 REQUIRED)
