@@ -1,4 +1,3 @@
-
 # RSDKv4 Sonic for IRIX (big endian)
 
 This is a copy of [RSDKv4-Decompilation](https://github.com/RSDKModding/RSDKv4-Decompilation) with modifications to run on IRIX 6.5.x
@@ -8,8 +7,7 @@ Follow the [README.md](https://github.com/RSDKModding/RSDKv4-Decompilation/blob/
 ## For IRIX you need: 
 
 - [SGUG-RSE](https://github.com/sgidevnet/sgug-rse/) environment for libraries and gcc
-- unreleased SDL2 SGUG-RSE package with experimental GL support
-- Good graphics card like VPro V12
+- [SDL2 for IRIX](https://github.com/flexion-unity/SDL/tree/2.0.12-IRIX) with GL support (Note: SDL2-2.0.12 in SGUG-RSE 0.0.7 tdnf repo does not support GL yet)
 
 ## Compile on IRIX
 
@@ -19,10 +17,15 @@ Follow the [README.md](https://github.com/RSDKModding/RSDKv4-Decompilation/blob/
 - make
 or "make -j4" if your SiliconGraphics box has 4 CPUs
 
+Approximate build time: 6 minutes on a 600MHz MIPS R14000 (SGI Fuel)
+
 Tested with Sonic 1 on Octane2 with V12 gfx.
+Tested with Sonic 2 on Fuel with V10 gfx.
+
 
 ## Known issues
 
-- Start intro + menu and in-game options menu still have serious 3D glitches.
-for now, set "SkipStartMenu=true" in your settings.ini to skip the intro and proceed straight to the game. 
+- Sonic 1 start intro + menu and in-game options menu still have serious 3D glitches.
+for now, set "SkipStartMenu=true" in your settings.ini to skip the intro and proceed straight to the game.
+
 
